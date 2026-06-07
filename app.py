@@ -24,27 +24,6 @@ DEFAULT_DISHES = [
     {"name": "麻婆豆腐", "ingredients": ["豆腐", "豬肉", "豆瓣醬", "花椒"]},
 ]
 
-# 初始化 session_state
-if "family" not in st.session_state:
-    st.session_state.family = []
-
-# ==================== 側邊欄 - 家庭成員 ====================
-st.sidebar.header("👨‍👩‍👧‍👦 家庭成員")
-
-with st.sidebar.form("add_family_form", clear_on_submit=True):
-    name = st.text_input("成員名稱")
-    dislikes = st.text_input("唔鍾意/過敏（用逗號分隔）")
-    submitted = st.form_submit_button("新增成員")
-
-    if submitted and name:
-        st.session_state.family.append({"name": name, "dislikes": dislikes})
-        st.success(f"已新增：{name}")
-
-if st.session_state.family:
-    st.sidebar.write("目前成員：")
-    for member in st.session_state.family:
-        st.sidebar.write(f"- {member['name']}")
-
 # ==================== 主畫面 ====================
 tab1, tab2 = st.tabs(["📅 今日建議", "📖 所有菜式"])
 
@@ -52,11 +31,8 @@ tab1, tab2 = st.tabs(["📅 今日建議", "📖 所有菜式"])
 with tab1:
     st.header("📅 今日建議")
 
-    # 簡單過濾（如果有家庭成員輸入唔鍾意，可以之後加強）
-    available_dishes = DEFAULT_DISHES.copy()
-
     if st.button("🔄 隨機建議一個菜式", use_container_width=True):
-        suggested = random.choice(available_dishes)
+        suggested = random.choice(DEFAULT_DISHES)
         st.session_state.suggested = suggested
 
     if "suggested" in st.session_state:
