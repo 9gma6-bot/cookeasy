@@ -1,5 +1,3 @@
-以下係完整版 app.py，直接全選複製：
-
 ```python
 import streamlit as st
 import random
@@ -85,10 +83,11 @@ with tab1:
 with tab2:
     st.header("📖 所有菜式")
     search = st.text_input("🔍 搜尋", "")
-    diff = st.selectbox("難度", ["全部"] + sorted(set(r['difficulty'] for r in recipes)))
+
 9gma6
-你整一個打包我一同處理 不要太過煩覆
-filtered = [r for r in recipes if (not search or search.lower() in r['name'].lower()) and (diff == "全部" or r['difficulty'] == diff)]
+Photo, 最底了
+diff = st.selectbox("難度", ["全部"] + sorted(set(r['difficulty'] for r in recipes)))
+    filtered = [r for r in recipes if (not search or search.lower() in r['name'].lower()) and (diff == "全部" or r['difficulty'] == diff)]
     for r in filtered:
         with st.expander(f"🍽️ {r['name']} ({r['time']} · {r['difficulty']})"):
             st.write(f"時間: {r['time']}　難度: {r['difficulty']}　人數: {r['servings']}")
@@ -106,5 +105,3 @@ with tab3:
             for i in r['ingredients']: st.write(f"- {i}")
             for i, s in enumerate(r['steps'], 1): st.write(f"{i}. {s}")
             st.info(f"💡 {r['tips']}")
-
-st.caption("個人使用版 · 新手友好"
