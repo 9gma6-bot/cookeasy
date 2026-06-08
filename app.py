@@ -1,4 +1,3 @@
-```python
 import streamlit as st
 import random
 
@@ -61,10 +60,12 @@ with tab1:
         with st.container(border=True):
             st.subheader(f"🍽️ {r['name']}")
             c1, c2, c3 = st.columns(3)
-            c1.metric("時間", r['time']); c2.metric("難度", r['difficulty']); c3.metric("人數", r['servings'])
-            st.markdown("🧂 材料")
+            c1.metric("時間", r['time'])
+            c2.metric("難度", r['difficulty'])
+            c3.metric("人數", r['servings'])
+            st.markdown("**🧂 材料**")
             for i in r['ingredients']: st.write(f"- {i}")
-            st.markdown("📝 步驟")
+            st.markdown("**📝 步驟**")
             for i, s in enumerate(r['steps'], 1): st.write(f"{i}. {s}")
             st.info(f"💡 {r['tips']}")
 
@@ -72,24 +73,3 @@ with tab2:
     st.header("📖 所有菜式")
     search = st.text_input("🔍 搜尋", "")
     diff = st.selectbox("難度", ["全部"] + sorted(set(r['difficulty'] for r in recipes)))
-
-9gma6
-Photo
-filtered = [r for r in recipes if (not search or search.lower() in r['name'].lower()) and (diff == "全部" or r['difficulty'] == diff)]
-    for r in filtered:
-        with st.expander(f"🍽️ {r['name']} ({r['time']} · {r['difficulty']})"):
-            st.write(f"時間: {r['time']}　難度: {r['difficulty']}　人數: {r['servings']}")
-            st.markdown("🧂 材料")
-            for i in r['ingredients']: st.write(f"- {i}")
-            st.markdown("📝 步驟")
-            for i, s in enumerate(r['steps'], 1): st.write(f"{i}. {s}")
-            st.success(f"💡 {r['tips']}")
-
-with tab3:
-    st.header("🍲 湯水類")
-    for r in [x for x in recipes if x['category'] == "湯水"]:
-        with st.expander(f"🍲 {r['name']}"):
-            st.write(f"時間: {r['time']}　難度: {r['difficulty']}")
-            for i in r['ingredients']: st.write(f"- {i}")
-            for i, s in enumerate(r['steps'], 1): st.write(f"{i}. {s}")
-            st.info(f"💡 {r['tips']}")
